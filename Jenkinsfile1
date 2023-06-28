@@ -13,7 +13,6 @@ pipeline {
         DOCKER_PASS = "dockerhub-cred"
         IMAGE_NAME = "${DOCKER_USER}" + "/" + "${APP_NAME}"
         IMAGE_TAG = "${RELEASE}-${BUILD_NUMBER}"
-        DEPLOYMENT_FILE = "kubernetes/docker-spring-boot.yaml"
     }
 
     stages {
@@ -55,12 +54,8 @@ pipeline {
         stage ("deployment to k8s") {
             steps {
                 script {
-                    withKubeConfig(caCertificate: '', clusterName: '', contextName: '', credentialsId: 'k8s', namespace: '', restrictKubeConfigAccess: false, serverUrl: '') 
-                    {
-                        // update the image name in deployment yml file
-                        sh "sed -i '/^\\s*image:/ s|.*|     image:${IMAGE_NAME}|' ${DEPLOYMENT_FILE}"
-                        // aplly the updated yml file
-                        sh "kubectl apply -f ${DEPLOYMENT_FILE}"
+                    withKubeConfig([credentialsId: 'k8s']){
+                        sh '/var/lib/jenkins/kubectl apply -f docker-spring-boot.yml'
                     }
                 }
             }
