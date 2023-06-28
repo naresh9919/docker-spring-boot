@@ -3,21 +3,23 @@ kind: Deployment
 metadata:
   name: docker-spring-boot
 spec:
+  replicas: 3
   selector:
     matchLabels:
       app: docker-spring-boot
-  replicas: 2 
-  template: 
+  template:
     metadata:
       labels:
         app: docker-spring-boot
     spec:
       containers:
-      - name: docker-spring-boot
-        image: nareshbabu1991/docker-spring-boot-4.0.0-2
-        ports:
-        - containerPort: 8080
-        imagePullPolicy: Always
+        - name: spring-boot
+          image: nareshbabu1991/docker-spring-boot
+          ports:
+            - containerPort: 8080
+          env:
+            - name: PORT
+              value: "8080"
 ---
 apiVersion: v1
 kind: Service
@@ -25,10 +27,8 @@ metadata:
   name: docker-spring-boot
 spec:
   type: LoadBalancer
+  ports:
+    - port: 80
+      targetPort: 8080
   selector:
     app: docker-spring-boot
-  ports:
-  - name: http
-    protocol: TCP
-    port: 80
-    targetPort: 8080
