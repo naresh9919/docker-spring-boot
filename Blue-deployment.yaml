@@ -6,7 +6,7 @@ metadata:
    replies: 2
    selector :
    match labels :
-      name : blue-deployment
+      name : docker-spring-boot
    template:
    metadata :
    labels :
@@ -25,7 +25,7 @@ kind : service
  metadata :
    name : blue-deployment 
  labels : 
-  name : blue-deployment 
+  name :docker-spring-boot
   spec : 
   - port : 80 
   target port : http
