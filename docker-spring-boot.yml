@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: spring-boot
-          image: nareshbabu1991/docker-spring-boot
+          image: nareshbabu1991/docker-spring-boot : blue
           ports:
             - containerPort: 8080
           env:
