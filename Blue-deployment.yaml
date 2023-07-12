@@ -14,7 +14,7 @@ metadata:
    spec :
    containers :
    - name : blue-deployment
-     image : nareshbabu1991/docker-spring-boot: blue
+     image : adamtravis/rollouts: blue
      ports :
      - name : http
        continer port : 8080 
