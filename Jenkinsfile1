@@ -50,5 +50,15 @@ pipeline {
                 }
             }
         }
+
+        stage ("deployment to k8s") {
+            steps {
+                script {
+                    withKubeConfig([credentialsId: 'k8s']){
+                        sh '/var/lib/jenkins/kubectl apply -f docker-spring-boot.yml'
+                    }
+                }
+            }
+        }
     }
 }
