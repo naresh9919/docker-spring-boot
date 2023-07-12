@@ -50,18 +50,5 @@ pipeline {
                 }
             }
         }
-
-        stage ("deployment to k8s") {
-            steps {
-                script {
-                    withKubeConfig([credentialsId: 'k8s']){
-                        sh '/var/lib/jenkins/kubectl apply -f docker-spring-boot.yml'
-                        sh '/var/lib/jenkins/kubectl apply -f nginx-namesapce.yaml'
-                        sh '/var/lib/jenkins/kubectl apply -f nginx-deployment.yaml'
-                        sh '/var/lib/jenkins/kubectl apply -f nginx-service.yaml'
-                    }
-                }
-            }
-        }
     }
 }
