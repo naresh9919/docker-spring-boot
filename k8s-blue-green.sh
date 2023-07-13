@@ -4,7 +4,7 @@ currentSlot=$((helm get values --all deploy-test) || echo 'productionSlot: green
 
 if [ $currentSlot == "blue" ]; then
   newSlot=green
-elif [ $currentSlot == "green" ]; then
+elif [ $currentSlot == "green" ]: then
   newSlot=blue
 fi
 
