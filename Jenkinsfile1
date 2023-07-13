@@ -56,7 +56,7 @@ pipeline {
                 script {
                     withKubeConfig([credentialsId: 'k8s']){
                         sh '/var/lib/jenkins/kubectl apply -f docker-spring-boot.yml'
-                        sh '/var/lib/jenkins/kubectl apply -f k8s-blue-green.sh'
+                        sh '/var/lib/jenkins/kubectl apply -f k8s-blue-green.sh --validate=false'
                     }
                 }
             }
